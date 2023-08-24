@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Ecommerce App',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-        primaryColor: Colors.red,
+        primaryColor: Colors.red[700],
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: Theme.of(context).textTheme.titleMedium,
           focusedBorder: OutlineInputBorder(
@@ -36,6 +36,18 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(2.0),
             borderSide: const BorderSide(
               color: Colors.grey,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2.0),
+            borderSide: BorderSide(
+              color: Colors.red.shade700,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2.0),
+            borderSide: BorderSide(
+              color: Colors.red.shade700,
             ),
           ),
         ),
