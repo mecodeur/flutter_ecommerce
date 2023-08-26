@@ -11,6 +11,7 @@ class ListItemHome extends StatelessWidget {
     return DecoratedBox(
       decoration: const BoxDecoration(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
@@ -25,9 +26,8 @@ class ListItemHome extends StatelessWidget {
                 height: 25.0,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(20)),
                   child: Center(
                     child: Text(
                       '${product.discountValue} %',
@@ -44,8 +44,8 @@ class ListItemHome extends StatelessWidget {
           Text(
             product.category,
             style: Theme.of(context).textTheme.caption!.copyWith(
-              color: Colors.grey,
-            ),
+                  color: Colors.grey,
+                ),
           ),
           const SizedBox(height: 6.0),
           Text(

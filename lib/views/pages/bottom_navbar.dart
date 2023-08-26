@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
+import '../../profle_page.dart';
 import 'home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -29,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       Container(),
       Container(),
       Container(),
-      Container(),
+      const ProfilePage(),
     ];
   }
 
