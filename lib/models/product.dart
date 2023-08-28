@@ -18,6 +18,8 @@ class Product {
     this.category = 'Other',
     this.rate,
   });
+
+
 }
 
 List<Product> dummyProducts = [

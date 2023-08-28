@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-import '../../profle_page.dart';
+import 'profle_page.dart';
 import 'home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -86,7 +86,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
         hideNavigationBarWhenKeyboardShows: true,
         margin: const EdgeInsets.all(0.0),
         popActionScreens: PopActionScreensType.all,
-        bottomScreenMargin: 0.0,
+        //Pour éviter que le contenu apparait below navBar
+        // bottomScreenMargin: 0.0,
         hideNavigationBar: _hideNavBar,
         decoration: NavBarDecoration(
             colorBehindNavBar: Colors.indigo,
