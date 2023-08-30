@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/utilities/assets.dart';
 import 'package:flutter_ecommerce/views/widgets/header_list.dart';
 import 'package:flutter_ecommerce/views/widgets/list_item_home.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final database = Provider.of<Database>(context);
 
     return SingleChildScrollView(
       child: Column(
@@ -47,59 +50,70 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 24.0,
           ),
-          HeaderList(
-            title: 'Sale',
-            subTitle: 'Super Summer Sale!!',
-            onTap: () {},
-          ),
-          const SizedBox(height: 8.0),
-          SizedBox(
-            height: 300,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
               children: [
-                ...dummyProducts
-                    .map((e) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListItemHome(product: e),
-                        ))
-                    .toList(),
+                HeaderList(
+                  title: 'Sale',
+                  subTitle: 'Super Summer Sale!!',
+                  onTap: () {},
+                ),
+                const SizedBox(height: 8.0),
+                SizedBox(
+                  height: 300,
+                  child: StreamBuilder<List<Product>>(
+                      stream: database.newProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.active) {
+                          final products = snapshot.data;
+                          if (products == null || products.isEmpty) {
+                            const Center(child: Text('No Data Available!'));
+                          }else {
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: products.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ListItemHome(product: products[index]);
+                              },);
+                          }
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                  ),
+                ),
+                HeaderList(
+                  title: 'New',
+                  subTitle: "You've never seen it before!",
+                  onTap: () {},
+                ),
+                SizedBox(
+                  height: 300,
+                  child: StreamBuilder<List<Product>>(
+                      stream: database.salesProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.active) {
+                          final products = snapshot.data;
+                          if (products == null || products.isEmpty) {
+                            const Center(child: Text('No data available !!'));
+                          } else {
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: products.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ListItemHome(product: products[index]);
+                              },);
+                          }
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                  ),
+                ),
+                const SizedBox(height: 50),
               ],
             ),
           ),
-          HeaderList(
-            title: 'New',
-            subTitle: "You've never seen it before!",
-            onTap: () {},
-          ),
-          SizedBox(
-            height: 300,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                ...dummyProducts
-                    .map((e) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListItemHome(product: e),
-                ))
-                    .toList(),
-              ],
-            ),
-          ),
-          const SizedBox(height: 50),
-          /*SizedBox(
-            height: 300,
-            child:
-            ListView.builder(
-              scrollDirection: Axis.horizontal,
-                itemCount: dummyProducts.length,
-                itemBuilder: (BuildContext context, int index) {
-                   return Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: ListItemHome(product: dummyProducts[index]),
-                   );
-                }),
-          ),*/
+
         ],
       ),
     );
