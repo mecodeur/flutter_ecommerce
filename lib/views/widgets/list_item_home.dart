@@ -33,11 +33,14 @@ class ListItemHome extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(
-                  product.imgUrl,
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Image.network(
+                    product.imgUrl,
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Padding(
@@ -68,15 +71,15 @@ class ListItemHome extends StatelessWidget {
           ),
           // TODO: Create one component for the favorite button
           Positioned(
-            left: size.width * 0.38,
-            bottom: size.height * 0.12,
+            left: size.width * 0.40,
+            bottom: size.height * 0.11,
             child: Container(
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.grey,
+                    blurRadius: 1,
+                    color: Colors.grey[300]!,
                     spreadRadius: 2,
                   )
                 ],
@@ -96,7 +99,7 @@ class ListItemHome extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 5,
+            bottom: 0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 
+import '../widgets/drop_down_menu.dart';
+
 class ProductDetailsPage extends StatefulWidget {
   final Product product;
 
@@ -13,6 +15,7 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   bool isFavorite = true;
+  late String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -44,29 +47,46 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: DecoratedBox(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              isFavorite = !isFavorite;
-                            });
-                          },
-                          child: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : Colors.black45,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 65.0,
+                          child: DropDownMenuComponent(
+                            items: const ['S', 'M', 'L', 'XL', 'XXL'],
+                            hint: 'Size',
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                              });
+                            },
                           ),
                         ),
                       ),
-                    ),
+                      const Spacer(),
+                      SizedBox(
+                        height: 65.0,
+                        width: 50.0,
+                        child: DecoratedBox(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                isFavorite = !isFavorite;
+                              });
+                            },
+                            child: Icon(
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.black45,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16.0,
