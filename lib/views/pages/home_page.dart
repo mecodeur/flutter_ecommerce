@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/utilities/assets.dart';
-import 'package:flutter_ecommerce/views/widgets/header_list.dart';
+import 'package:flutter_ecommerce/views/widgets/header_of_list.dart';
 import 'package:flutter_ecommerce/views/widgets/list_item_home.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               children: [
-                HeaderList(
+                HeaderOfList(
                   title: 'Sale',
                   subTitle: 'Super Summer Sale!!',
                   onTap: () {},
@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: products.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ListItemHome(product: products[index]);
+                                return ListItemHome(product: products[index], isNew: true,);
                               },);
                           }
                         }
@@ -82,10 +82,10 @@ class HomePage extends StatelessWidget {
                       }
                   ),
                 ),
-                HeaderList(
+                HeaderOfList(
+                  onTap: () {},
                   title: 'New',
                   subTitle: "You've never seen it before!",
-                  onTap: () {},
                 ),
                 SizedBox(
                   height: 300,
@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: products.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ListItemHome(product: products[index]);
+                                return ListItemHome(product: products[index], isNew: true,);
                               },);
                           }
                         }

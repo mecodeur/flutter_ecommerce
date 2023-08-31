@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HeaderList extends StatelessWidget {
+class HeaderOfList extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
   final String subTitle;
 
-  const HeaderList({super.key, required this.title, required this.subTitle, this.onTap});
+  const HeaderOfList({super.key, required this.title, required this.subTitle, this.onTap});
 
   @override
   Widget build(BuildContext context) {
