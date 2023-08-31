@@ -35,14 +35,12 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0, vertical: 16.0),
                 child: Text(
                   'Street Clothes',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -65,23 +63,28 @@ class HomePage extends StatelessWidget {
                   child: StreamBuilder<List<Product>>(
                       stream: database.newProductsStream(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.active) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
                           final products = snapshot.data;
                           if (products == null || products.isEmpty) {
                             const Center(child: Text('No Data Available!'));
-                          }else {
+                          } else {
                             return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: products.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ListItemHome(product: products[index], isNew: true,);
-                              },);
+                                return ListItemHome(
+                                  product: products[index],
+                                  isNew: true,
+                                );
+                              },
+                            );
                           }
                         }
                         return const Center(child: CircularProgressIndicator());
-                      }
-                  ),
+                      }),
                 ),
+                const SizedBox(height: 16.0),
                 HeaderOfList(
                   onTap: () {},
                   title: 'New',
@@ -92,7 +95,8 @@ class HomePage extends StatelessWidget {
                   child: StreamBuilder<List<Product>>(
                       stream: database.salesProductsStream(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.active) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
                           final products = snapshot.data;
                           if (products == null || products.isEmpty) {
                             const Center(child: Text('No data available !!'));
@@ -101,19 +105,21 @@ class HomePage extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: products.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ListItemHome(product: products[index], isNew: true,);
-                              },);
+                                return ListItemHome(
+                                  product: products[index],
+                                  isNew: true,
+                                );
+                              },
+                            );
                           }
                         }
                         return const Center(child: CircularProgressIndicator());
-                      }
-                  ),
+                      }),
                 ),
                 const SizedBox(height: 50),
               ],
             ),
           ),
-
         ],
       ),
     );
