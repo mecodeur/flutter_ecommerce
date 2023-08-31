@@ -5,7 +5,9 @@ import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
+import '../../utilities/assets.dart';
 import '../../utilities/enums.dart';
+import '../widgets/social_media_button.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -141,26 +143,14 @@ class _AuthPageState extends State<AuthPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: Colors.white,
-                              ),
-                              child: Icon(Icons.add),
+                            SocialMediaButton(
+                              iconName: AppAssets.facebookIcon,
+                              onPress: () {},
                             ),
-                            const SizedBox(
-                              width: 12.0,
-                            ),
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: Colors.white,
-                              ),
-                              child: const Icon(Icons.add),
+                            const SizedBox(width: 16.0),
+                            SocialMediaButton(
+                              iconName: AppAssets.googleIcon,
+                              onPress: () {},
                             ),
                           ],
                         ),
