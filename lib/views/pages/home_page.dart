@@ -90,6 +90,7 @@ class HomePage extends StatelessWidget {
                   title: 'New',
                   subTitle: "You've never seen it before!",
                 ),
+                const SizedBox(height: 8.0),
                 SizedBox(
                   height: 300,
                   child: StreamBuilder<List<Product>>(
