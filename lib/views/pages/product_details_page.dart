@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/add_to_cart_model.dart';
+import '../../utilities/constants.dart';
 import '../widgets/drop_down_menu.dart';
+import '../widgets/main_dialog.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final Product product;
@@ -17,9 +22,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   bool isFavorite = true;
   late String dropdownValue;
 
+  Future<void> _addToCart(Database database) async {
+    try {
+      final addToCartProduct = AddToCartModel(
+        id: documentIdFromLocalData(),
+        title: widget.product.title,
+        price: widget.product.price,
+        productId: widget.product.id,
+        imgUrl: widget.product.imgUrl,
+        size: dropdownValue,
+      );
+      await database.addToCart(addToCartProduct);
+    } catch (e) {
+      return MainDialog(
+        context: context,
+        title: 'Error',
+        content: 'Couldn\'t adding to the cart, please try again!: $e',
+      ).showAlertDialog();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final database = Provider.of<Database>(context);
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -92,21 +118,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     height: 16.0,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '${widget.product.title}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(fontWeight: FontWeight.w600),
+                      Expanded(
+                        child: Text(
+                          '${widget.product.title}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
                       ),
-                      Text(
-                        '${widget.product.price} \$ ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(fontWeight: FontWeight.w600),
+
+                      SizedBox(
+                        width: 90.0,
+                        child: Text(
+                          '${widget.product.price} \$ ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ],
                   ),
@@ -122,7 +155,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 16.0),
-                  MainButton(text: 'Add to Cart',  onTap: (){}, hasCircularBorder: true,),
+                  MainButton(text: 'Add to Cart',
+                    onTap: (){
+                      _addToCart(database);
+                    },
+                    hasCircularBorder: true,
+                  ),
                   const SizedBox(height: 32.0),
                 ],
               ),
