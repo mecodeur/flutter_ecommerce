@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ecommerce/models/user_data.dart';
+import 'package:flutter_ecommerce/utilities/constants.dart';
 import 'package:flutter_ecommerce/utilities/enums.dart';
 
 import '../services/auth.dart';
+import 'database_controller.dart';
 
 class AuthController with ChangeNotifier {
   final AuthBase authBase;
   String email;
   String password;
   AuthFormType authFormType;
+
+  // TODO: It's not a best practice thing but it's temporary
+  final database = FirestoreDatabase('123');
 
   AuthController({
     required this.authBase,
@@ -47,7 +53,11 @@ class AuthController with ChangeNotifier {
       if (authFormType == AuthFormType.login) {
         await authBase.loginWithEmailAndPassword(email, password);
       } else {
-        await authBase.signUpWithEmailAndPassword(email, password);
+        final user = await authBase.signUpWithEmailAndPassword(email, password);
+        await database.setUserData(UserData(
+          uid: user?.uid ?? documentIdFromLocalData(),
+          email: email,
+        ));
       }
     } catch (e) {
       rethrow;
@@ -61,5 +71,4 @@ class AuthController with ChangeNotifier {
       rethrow;
     }
   }
-
 }

@@ -3,7 +3,7 @@ import '../utilities/assets.dart';
 class Product {
   final String id;
   final String title;
-  final int price;
+  final double price;
   final String imgUrl;
   final int discountValue;
   final String category;
@@ -35,7 +35,7 @@ class Product {
     return Product(
       id: documentId,
       title: map['title'] as String,
-      price: map['price'] as int,
+      price: map['price'].toDouble(),
       imgUrl: map['imgUrl'] as String,
       discountValue: map['discountValue'] as int,
       category: map['category'] as String,

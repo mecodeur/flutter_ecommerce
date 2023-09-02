@@ -3,8 +3,9 @@ import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/pages/auth_page.dart';
 import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
 import 'package:flutter_ecommerce/views/pages/product_details_page.dart';
+import 'package:provider/provider.dart';
 
-import '../models/product.dart';
+import '../controllers/database_controller.dart';
 import '../views/pages/landing_page.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
@@ -23,9 +24,14 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
 
     case AppRoutes.productDetailsPageRoute:
-      final product = settings.arguments as Product;
+      final args = settings.arguments as Map<String, dynamic>;
+      final product = args['product'];
+      final database = args['database'];
       return CupertinoPageRoute(
-        builder: (_) =>  ProductDetailsPage(product: product),
+        builder: (_) => Provider<Database>.value(
+          value: database,
+          child: ProductDetailsPage(product: product),
+        ),
         settings: settings,
       );
 
