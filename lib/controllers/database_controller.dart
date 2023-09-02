@@ -13,6 +13,8 @@ abstract class Database {
   Future<void> setUserData(UserData userData);
 
   Future<void> addToCart(AddToCartModel product);
+
+  Stream<List<AddToCartModel>> myProductCart(String uid);
 }
 
 class FirestoreDatabase implements Database {
@@ -48,6 +50,14 @@ class FirestoreDatabase implements Database {
     return await _service.setData(
       path: ApiPath.addToCart(uid, product.id),
       data: product.toMap(),
+    );
+  }
+
+  @override
+  Stream<List<AddToCartModel>> myProductCart(String uid) {
+    return _service.collectionsStream(
+      path: ApiPath.myProductsCart(uid),
+      builder: (data, documentId) => AddToCartModel.fromMap(data!, documentId) ,
     );
   }
 }
