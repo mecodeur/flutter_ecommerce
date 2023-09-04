@@ -6,12 +6,29 @@ import 'package:provider/provider.dart';
 
 import '../widgets/main_button.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  double totalAmount = 0;
+
+  @override
+  void didChangeDependencies() async{
+    final myProducts = await Provider.of<Database>(context).myProductCart().first;
+    myProducts.forEach((element) {
+      setState(() {
+        totalAmount += element.price;
+      });
+    });
+
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int totalAmount = 0;
     final database = Provider.of<Database>(context);
 
     return SafeArea(
@@ -80,7 +97,7 @@ class CartPage extends StatelessWidget {
                                 ),
                           ),
                           Text(
-                            '$totalAmount\$',
+                            '${totalAmount.toString().substring(0,5)}\$',
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
