@@ -40,7 +40,7 @@ class AddToCartModel {
       id: documentId,
       title: map['title'] ?? '',
       productId: map['productId'] ?? '',
-      price: map['price']?.toInt() ?? 0,
+      price: map['price']?.toDouble() ?? 0,
       quantity: map['quantity']?.toInt() ?? 0,
       imgUrl: map['imgUrl'] ?? '',
       discountValue: map['discountValue']?.toInt() ?? 0,
