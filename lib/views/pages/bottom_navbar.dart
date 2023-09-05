@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/views/pages/cart_page.dart';
+import 'package:flutter_ecommerce/views/pages/checkout/checkout_page.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'profle_page.dart';
@@ -27,9 +28,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> _buildScreens() {
     return [
-      const CartPage(),
       const HomePage(),
-      Container(),
+      const CartPage(),
+      const CheckoutPage(),
       Container(),
       const ProfilePage(),
     ];
@@ -38,14 +39,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.shopping_cart),
-        title: ("Cart"),
+        icon: const Icon(Icons.home),
+        title: ("Home"),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey3,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.home),
-        title: ("Home"),
+        icon: const Icon(CupertinoIcons.shopping_cart),
+        title: ("Cart"),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey3,
       ),
