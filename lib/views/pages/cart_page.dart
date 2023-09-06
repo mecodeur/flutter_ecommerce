@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/add_to_cart_model.dart';
+import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/cart_list_item.dart';
 import 'package:provider/provider.dart';
 
@@ -105,7 +106,11 @@ class _CartPageState extends State<CartPage> {
                       const SizedBox(height: 32.0),
                       MainButton(
                         text: 'Checkout',
-                        onTap: () {},
+                        onTap: () => Navigator.of(context, rootNavigator: true)
+                            .pushNamed(
+                          AppRoutes.checkoutPageRoute,
+                          arguments: database,
+                        ),
                         hasCircularBorder: true,
                       ),
                       const SizedBox(height: 32.0),

@@ -5,4 +5,5 @@ class AppRoutes {
   static  const String bottomNavBarRoute = '/navbar';
   static  const String productDetailsPageRoute = '/product-details';
   static const String checkoutPageRoute = '/checkout';
+  static const String addShippingAddressRoute = '/checkout/add-shipping-address';
 }
