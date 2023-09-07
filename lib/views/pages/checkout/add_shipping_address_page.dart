@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/models/shipping_adress.dart';
+import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controllers/database_controller.dart';
@@ -37,7 +37,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   Future<void> saveAddress(Database database) async {
     try {
       if (_formKey.currentState!.validate()) {
-        final address = ShippingAdress(
+        final address = ShippingAddress(
           id: documentIdFromLocalData(),
           fullName: _fullNameController.text.trim(),
           country: _countryController.text.trim(),

@@ -4,7 +4,7 @@ import 'package:flutter_ecommerce/models/delivery_method.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/shipping_adress.dart';
+import '../../../models/shipping_address.dart';
 import '../../../utilities/routes.dart';
 import '../../widgets/checkout/checkout_order_details.dart';
 import '../../widgets/checkout/delivery_method_item.dart';
@@ -38,8 +38,8 @@ class CheckoutPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8.0),
-              StreamBuilder<List<ShippingAdress>>(
-                stream: database.getShippingAdresses(),
+              StreamBuilder<List<ShippingAddress>>(
+                stream: database.getShippingAddresses(),
                 builder: (context, snapshot) {
                   if(snapshot.connectionState == ConnectionState.active){
                     final shippingAddresses = snapshot.data;

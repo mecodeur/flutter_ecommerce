@@ -1,4 +1,4 @@
-class ShippingAdress {
+class ShippingAddress {
   final String id;
   final String fullName;
   final String country;
@@ -8,7 +8,7 @@ class ShippingAdress {
   final String zipCode;
   final bool isDefault;
 
-  ShippingAdress({
+  ShippingAddress({
     required this.id,
     required this.fullName,
     required this.country,
@@ -32,8 +32,8 @@ class ShippingAdress {
     };
   }
 
-  factory ShippingAdress.fromMap(Map<String, dynamic> map, String documentId) {
-    return ShippingAdress(
+  factory ShippingAddress.fromMap(Map<String, dynamic> map, String documentId) {
+    return ShippingAddress(
       id: documentId,
       fullName: map['fullName'] as String,
       country: map['country'] as String,
@@ -42,6 +42,28 @@ class ShippingAdress {
       state: map['state'] as String,
       zipCode: map['zipCode'] as String,
       isDefault: map['isDefault'] as bool,
+    );
+  }
+
+  ShippingAddress copyWith({
+    String? id,
+    String? fullName,
+    String? country,
+    String? address,
+    String? city,
+    String? state,
+    String? zipCode,
+    bool? isDefault,
+  }) {
+    return ShippingAddress(
+      id: id ?? this.id,
+      fullName: fullName ?? this.fullName,
+      country: country ?? this.country,
+      address: address ?? this.address,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      zipCode: zipCode ?? this.zipCode,
+      isDefault: isDefault ?? this.isDefault,
     );
   }
 }
