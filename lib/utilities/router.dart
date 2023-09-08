@@ -10,6 +10,7 @@ import '../views/pages/checkout/add_shipping_address_page.dart';
 import '../views/pages/checkout/checkout_page.dart';
 import '../views/pages/checkout/shipping_addresses_page.dart';
 import '../views/pages/landing_page.dart';
+import 'args_models/add_shipping_address_args.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
@@ -48,11 +49,17 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
 
     case AppRoutes.addShippingAddressRoute:
-      final database = settings.arguments as Database;
+
+      final args = settings.arguments as AddShippingAddressArgs;
+      final database = args.database;
+      final shippingAddress = args.shippingAddress;
+
       return CupertinoPageRoute(
         builder: (_) => Provider<Database>.value(
           value: database,
-          child: const AddShippingAddressPage(),
+          child: AddShippingAddressPage(
+            shippingAddress: shippingAddress,
+          ),
         ),
         settings: settings,
       );

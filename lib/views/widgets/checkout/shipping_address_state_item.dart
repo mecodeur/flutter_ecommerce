@@ -3,6 +3,9 @@ import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utilities/args_models/add_shipping_address_args.dart';
+import '../../../utilities/routes.dart';
+
 class ShippingAddressStateItem extends StatefulWidget {
   final ShippingAddress shippingAddress;
   const ShippingAddressStateItem({
@@ -44,7 +47,13 @@ class _ShippingAddressStateItemState extends State<ShippingAddressStateItem> {
                       ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).pushNamed(
+                    AppRoutes.addShippingAddressRoute,
+                    arguments: AddShippingAddressArgs(
+                      database: database,
+                      shippingAddress: widget.shippingAddress,
+                    ),
+                  ),
                   child: Text(
                     'Edit',
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(

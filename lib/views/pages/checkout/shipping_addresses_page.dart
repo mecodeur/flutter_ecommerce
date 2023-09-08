@@ -4,6 +4,9 @@ import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/views/widgets/checkout/shipping_address_state_item.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utilities/args_models/add_shipping_address_args.dart';
+import '../../../utilities/routes.dart';
+
 class ShippingAddressesPage extends StatefulWidget {
   const ShippingAddressesPage({super.key});
 
@@ -48,7 +51,10 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () => Navigator.of(context).pushNamed(
+          AppRoutes.addShippingAddressRoute,
+          arguments: AddShippingAddressArgs(database: database),
+        ),
         backgroundColor: Colors.black,
         child: const Icon(Icons.add),
       ),
