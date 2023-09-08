@@ -4,7 +4,7 @@ import 'package:flutter_ecommerce/models/user_data.dart';
 import 'package:flutter_ecommerce/services/firestore_services.dart';
 
 import '../models/delivery_method.dart';
-import '../models/shipping_adress.dart';
+import '../models/shipping_address.dart';
 import '../utilities/api_path.dart';
 
 abstract class Database {
@@ -20,9 +20,9 @@ abstract class Database {
 
   Stream<List<DeliveryMethod>> deliveryMethodsStream();
 
-  Stream<List<ShippingAdress>> getShippingAdresses();
+  Stream<List<ShippingAddress>> getShippingAddresses();
 
-  Future<void> saveAddress(ShippingAdress address);
+  Future<void> saveAddress(ShippingAddress address);
 }
 
 class FirestoreDatabase implements Database {
@@ -78,15 +78,15 @@ class FirestoreDatabase implements Database {
   }
 
   @override
-  Stream<List<ShippingAdress>> getShippingAdresses() {
+  Stream<List<ShippingAddress>> getShippingAddresses() {
     return _service.collectionsStream(
       path: ApiPath.userShippingAddress(uid),
-      builder: (data, documentId) => ShippingAdress.fromMap(data!, documentId),
+      builder: (data, documentId) => ShippingAddress.fromMap(data!, documentId),
     );
   }
 
   @override
-  Future<void> saveAddress(ShippingAdress address) {
+  Future<void> saveAddress(ShippingAddress address) {
     return _service.setData(
       path: ApiPath.newAddress(
         uid,

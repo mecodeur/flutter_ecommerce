@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/models/shipping_adress.dart';
+import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controllers/database_controller.dart';
@@ -8,7 +8,10 @@ import '../../widgets/main_button.dart';
 import '../../widgets/main_dialog.dart';
 
 class AddShippingAddressPage extends StatefulWidget {
-  const AddShippingAddressPage({super.key});
+
+  final ShippingAddress? shippingAddress;
+
+  const AddShippingAddressPage({super.key, this.shippingAddress});
 
   @override
   State<AddShippingAddressPage> createState() => _AddShippingAddressPageState();
@@ -22,6 +25,22 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   final _stateController = TextEditingController();
   final _zipCodeController = TextEditingController();
   final _countryController = TextEditingController();
+
+  ShippingAddress? shippingAddress;
+
+  @override
+  void initState() {
+    super.initState();
+    shippingAddress = widget.shippingAddress;
+    if (shippingAddress != null) {
+      _fullNameController.text = shippingAddress!.fullName;
+      _addressController.text = shippingAddress!.address;
+      _cityController.text = shippingAddress!.city;
+      _stateController.text = shippingAddress!.state;
+      _zipCodeController.text = shippingAddress!.zipCode;
+      _countryController.text = shippingAddress!.country;
+    }
+  }
 
   @override
   void dispose() {
@@ -37,8 +56,10 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   Future<void> saveAddress(Database database) async {
     try {
       if (_formKey.currentState!.validate()) {
-        final address = ShippingAdress(
-          id: documentIdFromLocalData(),
+        final address = ShippingAddress(
+          id: shippingAddress != null
+              ? shippingAddress!.id
+              : documentIdFromLocalData(),
           fullName: _fullNameController.text.trim(),
           country: _countryController.text.trim(),
           address: _addressController.text.trim(),
@@ -65,7 +86,9 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Adding Shipping Address',
+          shippingAddress != null
+              ? 'Editing Shipping Address'
+              : 'Adding Shipping Address',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         centerTitle: true,
@@ -79,7 +102,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
             child: Column(
               children: [
                 TextFormField(
-                  controller: TextEditingController(),
+                  controller: _fullNameController,
                   decoration: const InputDecoration(
                     labelText: 'Full name',
                     fillColor: Colors.white,
